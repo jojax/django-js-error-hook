@@ -1,7 +1,8 @@
+{% load url from future %}
 function logError(details) {
     $.ajax({
 		type: "POST",
-		url: "{% url js-error-handler %}",
+		url: "{% url 'js-error-handler' %}",
 		data: {context: navigator.userAgent, details: details},
 		contentType: 'application/json; charset=utf-8'
 	}); 
