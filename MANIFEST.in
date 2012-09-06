@@ -1,0 +1,2 @@
+global-exclude *.pyc .*.swp
+include AUTHORS CHANGELOG INSTALL LICENSE README VERSION
