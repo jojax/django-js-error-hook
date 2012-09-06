@@ -8,7 +8,8 @@ To install the project from the development::
     $ cd django-js-error-hook
     $ virtualenv env
     $ env/bin/python setup.py develop
-    $ env/bin/python demo/setup.py develop
+    $ cd demo
+    $ ../env/bin/python demo/setup.py develop
 
 Then to try the application::
 
