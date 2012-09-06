@@ -12,7 +12,7 @@ def read_relative_file(filename):
 
 
 NAME = 'django-js-error-hook'
-README = read_relative_file('README')
+README = read_relative_file('README.rst')
 VERSION = read_relative_file('VERSION').strip()
 PACKAGES = ['django_js_error_hook']
 REQUIRES = ['django>=1.4']
