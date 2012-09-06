@@ -1,5 +1,4 @@
 {% load url from future %}
-{% load static from staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,27 +7,13 @@
         <meta name="description" content="Novasupport">
         <meta name="author" content="Jojax">
         <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" src="{% url 'js-error-handler-js' %}"></script>
     </head>
     
     <body>
-       A simple Page which voluntary triggers a Js error
-
-    <script type="text/javascript">
-        function logError(details) {
-          $.ajax({
-            type: "POST",
-            url: "{% url 'js-error-handler' %}",
-            data: {context: navigator.userAgent, details: details},
-            contentType: 'application/json; charset=utf-8'
-        }); 
-      }
-
-        window.onerror = function(error_msg, url, line_number) {
-           logError(url + ':' + line_number + '\n\n' + error_msg);
-        };
-
-        my_undifined_variable
-    </script>
-
+       A simple Page which voluntary triggers a Js error (Ctrl+U to see the script causing the error)
+        <script type="text/javascript">
+            A fu***ng javascript error
+        </script>
     </body>
 </html>

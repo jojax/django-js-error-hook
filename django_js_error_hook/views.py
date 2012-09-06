@@ -1,8 +1,9 @@
 from django.conf import settings
-from django.views.generic import View
+from django.views.generic import TemplateView, View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
 import logging 
 
@@ -21,3 +22,12 @@ class JSErrorHandlerView(View):
       logger.error("javascript error: %s", error_dict)
       return HttpResponse('Error logged')
   
+class MimetypeTemplateView(TemplateView):
+   """TemplateView with mimetype override"""
+   template_name="django_js_error_hook/log_error.js"
+   mimetype="text/javascript"
+   
+   def render_to_response(self, context, **response_kwargs):
+      """Use self.mimetype to return the right mimetype"""
+      response_kwargs['mimetype'] = self.mimetype
+      return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
