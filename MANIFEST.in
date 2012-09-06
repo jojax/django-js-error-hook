@@ -1,2 +1,3 @@
+recursive-include django_js_error_hook *
 global-exclude *.pyc .*.swp
-include AUTHORS CHANGELOG INSTALL LICENSE README VERSION
+include AUTHORS CHANGELOG INSTALL LICENSE README.rst VERSION
