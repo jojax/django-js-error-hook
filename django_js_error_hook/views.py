@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.views.decorators.cache import cache_page
 
 import logging 
 
@@ -26,8 +27,10 @@ class MimetypeTemplateView(TemplateView):
    """TemplateView with mimetype override"""
    template_name="django_js_error_hook/log_error.js"
    mimetype="text/javascript"
-   
+
    def render_to_response(self, context, **response_kwargs):
       """Use self.mimetype to return the right mimetype"""
       response_kwargs['mimetype'] = self.mimetype
       return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
+
+utils_js = cache_page(2 * 31 * 24 * 60 * 60)(MimetypeTemplateView.as_view()) #: Cache 2 months
