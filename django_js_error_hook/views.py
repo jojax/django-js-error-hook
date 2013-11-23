@@ -18,7 +18,6 @@ class JSErrorHandlerView(View):
 
     def post(self, request):
         """Read POST data and log it as an JS error"""
-        print `request.body`
         error_dict = request.POST.dict()
         logger.error("javascript error: %s", error_dict)
         return HttpResponse('Error logged')
