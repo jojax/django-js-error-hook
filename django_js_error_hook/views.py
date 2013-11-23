@@ -8,18 +8,21 @@ from django.views.decorators.cache import cache_page
 import logging
 
 logger = logging.getLogger(getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error'))
+CSRF_EXEMPT = getattr(settings, 'JAVASCRIPT_ERROR_CSRF_EXEMPT', False)
 
 class JSErrorHandlerView(View):
     """View that take the JS error as POST parameters and log it"""
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(JSErrorHandlerView, self).dispatch(*args, **kwargs)
+    if CSRF_EXEMPT:
+        @method_decorator(csrf_exempt)
+        def dispatch(self, *args, **kwargs):
+            return super(JSErrorHandlerView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
         """Read POST data and log it as an JS error"""
         error_dict = request.POST.dict()
-        logger.error("javascript error: %s", error_dict)
+        error_dict['user'] = request.user if request.user.is_authenticated() else "<UNAUTHENTICATED>"
+        logger.error("Got error: \n%s", '\n'.join("\t%s: %s" % i for i in error_dict.items()))
         return HttpResponse('Error logged')
 
 class MimetypeTemplateView(TemplateView):
