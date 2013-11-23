@@ -27,7 +27,7 @@ class JSErrorHandlerView(View):
 
 class MimetypeTemplateView(TemplateView):
     """TemplateView with mimetype override"""
-    template_name = "django_js_error_hook/log_error.js"
+    template_name = "django_js_error_hook/utils.js"
     mimetype = "text/javascript"
 
     def render_to_response(self, context, **response_kwargs):
