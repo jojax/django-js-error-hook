@@ -15,7 +15,7 @@ Then to try the application::
 
     $ demo runserver
 
-The access : http://localhost:8000/ the javascript error will be log in your console.
+Then access: http://localhost:8000/ - the javascript error will be log in your console.
 
 To install the project in production::
 
@@ -78,7 +78,7 @@ By default the logger is called "javascript_error", if you want you can define `
 
    JAVASCRIPT_ERROR_ID = '<your logger name>'
 
-The view will do csrf validation - if for some reason it doesn't work, set ``JAVASCRIPT_ERROR_CSRF_EXEMPT`` to ``False in your settings.
+The view will do csrf validation - if for some reason it doesn't work, set ``JAVASCRIPT_ERROR_CSRF_EXEMPT`` to ``True`` in your settings.
 
 Then install the urls::
 
@@ -90,7 +90,7 @@ Then install the urls::
 
 
 In your template, simply add the js_error_hook script::
-    
+
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="{% url js-error-handler-js %}"></script>
 
