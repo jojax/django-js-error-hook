@@ -1,22 +1,14 @@
 from django.conf import settings
 from django.views.generic import TemplateView, View
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 
 import logging
-
 logger = logging.getLogger(getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error'))
-CSRF_EXEMPT = getattr(settings, 'JAVASCRIPT_ERROR_CSRF_EXEMPT', False)
+
 
 class JSErrorHandlerView(View):
     """View that take the JS error as POST parameters and log it"""
-
-    if CSRF_EXEMPT:
-        @method_decorator(csrf_exempt)
-        def dispatch(self, *args, **kwargs):
-            return super(JSErrorHandlerView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
         """Read POST data and log it as an JS error"""
