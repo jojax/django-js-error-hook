@@ -66,7 +66,7 @@ If you want to log the error in the console for development::
                 'level': 'ERROR',
                 'propagate': True,
             },
-         'javascript_error': {
+            'javascript_error': {
                 'handlers': ['mail_admins', 'console'],
                 'level': 'ERROR',
                 'propagate': True,
@@ -78,6 +78,7 @@ By default the logger is called "javascript_error", if you want you can define `
 
    JAVASCRIPT_ERROR_ID = '<your logger name>'
 
+The view will do csrf validation - if for some reason it doesn't work, set ``JAVASCRIPT_ERROR_CSRF_EXEMPT`` to ``False in your settings.
 
 Then install the urls::
 
