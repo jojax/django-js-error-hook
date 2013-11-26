@@ -1,11 +1,14 @@
 from django.conf import settings
-from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
-
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView, View
 import logging
-logger = logging.getLogger(getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error'))
 
+ERROR_ID = getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error')
+CSRF_EXEMPT = getattr(settings, 'JAVASCRIPT_ERROR_CSRF_EXEMPT', False)
+
+logger = logging.getLogger(ERROR_ID)
 
 class JSErrorHandlerView(View):
     """View that take the JS error as POST parameters and log it"""
@@ -28,3 +31,8 @@ class MimetypeTemplateView(TemplateView):
         return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
 
 utils_js = cache_page(2 * 31 * 24 * 60 * 60)(MimetypeTemplateView.as_view()) #: Cache 2 months
+
+if CSRF_EXEMPT:
+    js_error_view = csrf_exempt(JSErrorHandlerView.as_view())
+else:
+    js_error_view = JSErrorHandlerView.as_view()
