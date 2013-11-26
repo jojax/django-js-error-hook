@@ -14,7 +14,7 @@ class JSErrorHandlerView(View):
         """Read POST data and log it as an JS error"""
         error_dict = request.POST.dict()
         error_dict['user'] = request.user if request.user.is_authenticated() else "<UNAUTHENTICATED>"
-        logger.error("Got error: \n%s", '\n'.join("\t%s: %s" % i for i in error_dict.items()))
+        logger.error("Got error: \n%s", '\n'.join("\t%s: %s" % (key, value) for key, value in error_dict.items()))
         return HttpResponse('Error logged')
 
 class MimetypeTemplateView(TemplateView):
