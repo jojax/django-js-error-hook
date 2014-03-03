@@ -91,7 +91,6 @@ Then install the urls::
 
 In your template, simply add the js_error_hook script::
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="{% url js-error-handler-js %}"></script>
 
 Now every Javascript error will be logged in your logging error stream. (Mail, Sentry, ...)
