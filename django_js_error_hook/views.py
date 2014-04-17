@@ -7,6 +7,8 @@ import logging
 
 ERROR_ID = getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error')
 CSRF_EXEMPT = getattr(settings, 'JAVASCRIPT_ERROR_CSRF_EXEMPT', False)
+PROXY_CONSOLE = getattr(
+    settings, 'JAVASCRIPT_ERROR_PROXY_CONSOLE', False)
 
 logger = logging.getLogger(ERROR_ID)
 
@@ -31,6 +33,7 @@ class MimetypeTemplateView(TemplateView):
     def render_to_response(self, context, **response_kwargs):
         """Use self.mimetype to return the right mimetype"""
         response_kwargs['mimetype'] = self.mimetype
+        context['proxy_console'] = PROXY_CONSOLE
         return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
 
 utils_js = cache_page(2 * 31 * 24 * 60 * 60)(MimetypeTemplateView.as_view()) #: Cache 2 months

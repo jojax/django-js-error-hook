@@ -40,4 +40,14 @@
 	window.onerror = function(error_msg, url, line_number) {
 		logError(url + ':' + line_number + ': ' + error_msg);
 	};
+
+    {% if proxy_console %}
+    
+        var proxied_log = window.console.log;
+        window.console.log = function(){
+	    logError(Array.prototype.slice.call(
+		arguments).join(','));
+	    return proxied_log.apply(this, arguments);
+        };
+    {% endif %}
 })();
