@@ -77,6 +77,10 @@ If you want to log the error in the console for development::
 By default the logger is called "javascript_error", if you want you can define ``JAVASCRIPT_ERROR_ID`` in your settings::
 
    JAVASCRIPT_ERROR_ID = '<your logger name>'
+   
+Enable logging of every ``window.console.log`` call by setting ``JAVASCRIPT_ERROR_PROXY_CONSOLE`` in your settings::
+
+   JAVASCRIPT_ERROR_PROXY_CONSOLE = True
 
 The view will do csrf validation - if for some reason it doesn't work, set ``JAVASCRIPT_ERROR_CSRF_EXEMPT`` to ``True`` in your settings.
 
@@ -92,6 +96,15 @@ Then install the urls::
 In your template, simply add the js_error_hook script::
 
     <script type="text/javascript" src="{% url js-error-handler-js %}"></script>
+    
+Or add ``django_js_error_hook.middleware.JSErrorHookMiddleware`` to your ``settings.MIDDLEWARE_CLASSES`` 
+to hook into every request::
+
+    MIDDLEWARE_CLASSES = (
+	    ...
+	'django_js_error_hook.middleware.JSErrorHookMiddleware',
+	...
+    )
 
 Now every Javascript error will be logged in your logging error stream. (Mail, Sentry, ...)
 
