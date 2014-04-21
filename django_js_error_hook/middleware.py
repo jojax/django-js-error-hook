@@ -35,18 +35,22 @@ class JSErrorHookMiddleware(object):
         if any((getattr(response, 'streaming', False),
                 'gzip' in content_encoding,
                 content_type not in _HTML_TYPES)):
+            # no js-logger possible
             return response
 
-        # Insert the js-logger in the response.
         content = force_text(
             response.content, encoding=settings.DEFAULT_CHARSET)
 
         pattern = re.escape(INSERT_BEFORE)
+        # split the content by `_INSERT_BEFORE` e.g. </body> 
         bits = re.split(pattern, content, flags=re.IGNORECASE)
 
-        if len(bits) > 1:
+        if len(bits) > 1: # `_INSERT_BEFORE` was found
+            # append to the bit before the last `_INSERT_BEFORE`
             bits[-2] += _SCRIPT_TAG % reverse('js-error-handler-js')
+            # join bits again to create content
             response.content = INSERT_BEFORE.join(bits)
+            # recalculate the lenght if necessary
             if response.get('Content-Length', None):
                 response['Content-Length'] = len(response.content)
         return response
