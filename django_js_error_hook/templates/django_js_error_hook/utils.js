@@ -1,8 +1,6 @@
 {% load url from future %}
-(function(djErrorHook, undefined){
+var djErrorHook = (function(djErrorHook, undefined){
     
-    window.djErrorHook = djErrorHook;
-
     function getCookie(name){
 	var nameEQ = name + "=";
 	var c, ca = document.cookie.split(';');
@@ -80,7 +78,9 @@
     };
 
     {% endif %}
+
+    return djErrorHook;
     
 })(
-    window.djErrorHook || {}
+    djErrorHook || {}
 );
