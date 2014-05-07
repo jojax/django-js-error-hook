@@ -68,13 +68,15 @@ var djErrorHook = (function(djErrorHook, undefined){
 
     {% if proxy_console %}
     
-    var proxied_log = window.console.log;
+    var proxied_log = window.console && window.console.log;
 
     window.console.log = function(){
 	djErrorHook.logError(
 	    'CONSOLE: ' + Array.prototype.slice.call(
 		arguments).join(','));
-	return proxied_log.apply(this, arguments);
+	if(proxied_log && proxied_log.apply){
+	    proxied_log.apply(this, arguments);
+	}
     };
 
     {% endif %}
