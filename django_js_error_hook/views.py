@@ -1,3 +1,6 @@
+from distutils.version import StrictVersion
+
+from django import get_version
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
@@ -29,8 +32,18 @@ class MimetypeTemplateView(TemplateView):
     mimetype = "text/javascript"
 
     def render_to_response(self, context, **response_kwargs):
-        """Use self.mimetype to return the right mimetype"""
-        response_kwargs['mimetype'] = self.mimetype
+        """
+            Before django 1.5 : 'mimetype'
+            From django 1.5 : 'content_type'
+
+            Add the parameter to return the right mimetype
+        """
+        if StrictVersion(get_version()) < StrictVersion('1.5'):
+            mimetype_parameter = 'mimetype'
+        else:
+            mimetype_parameter = 'content_type'
+
+        response_kwargs[mimetype_parameter] = self.mimetype
         return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
 
 utils_js = cache_page(2 * 31 * 24 * 60 * 60)(MimetypeTemplateView.as_view()) #: Cache 2 months
