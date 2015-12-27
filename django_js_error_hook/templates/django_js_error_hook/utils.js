@@ -1,4 +1,3 @@
-{% load url from future %}
 (function() {
 	function getCookie(name) {
 		var nameEQ = name + "=";
