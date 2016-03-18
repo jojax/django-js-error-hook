@@ -1,0 +1,2 @@
+[run]
+include = *django_js_error_hook*

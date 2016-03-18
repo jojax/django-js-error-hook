@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 
-urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name = "error_test.html")),
-    url(r'^error_hook/', include('django_js_error_hook.urls')),
-)
+urlpatterns = [
+    url('^$', TemplateView.as_view(template_name = "error_test.html")),
+    url('^error_hook/', include('django_js_error_hook.urls')),
+]
