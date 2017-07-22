@@ -10,17 +10,9 @@
 		return null;
 	}
 	function logError(details) {
-		var xhr;
-		try {
-			xhr = new ActiveXObject('Msxml2.XMLHTTP');
-		} catch (e1) {
-			try {
-				xhr = new ActiveXObject('Microsoft.XMLHTTP');
-			} catch (e2) {
-				xhr = new XMLHttpRequest();
-			}
-		}
-		xhr.open("POST", "{% url 'js-error-handler' %}", false);
+		var xhr = new XMLHttpRequest();
+
+		xhr.open("POST", "{% url 'js-error-handler' %}", true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		var cookie = getCookie('csrftoken');
 		if (cookie) {
@@ -36,7 +28,14 @@
 		xhr.send(query.join('&'));
 	}
 
-	window.onerror = function(error_msg, url, line_number) {
-		logError(url + ':' + line_number + ': ' + error_msg);
+	window.onerror = function(msg, url, line_number, column_number, error_obj) {
+		var log_message = url + ': ' + line_number + ': ' + msg;
+		if (column_number) {
+			log_message += ", " + column_number;
+		}
+		if (error_obj) {
+			log_message += ", " + JSON.stringify(error);
+		}
+		logError(log_message);
 	};
 })();
