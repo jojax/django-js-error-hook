@@ -33,8 +33,8 @@
 		if (column_number) {
 			log_message += ", " + column_number;
 		}
-		if (error_obj) {
-			log_message += ", " + JSON.stringify(error_obj);
+		if (error_obj && error_obj.stack) {
+			log_message += ", " + error_obj.stack;
 		}
 		logError(log_message);
 	};
