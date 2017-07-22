@@ -34,7 +34,7 @@
 			log_message += ", " + column_number;
 		}
 		if (error_obj) {
-			log_message += ", " + JSON.stringify(error);
+			log_message += ", " + JSON.stringify(error_obj);
 		}
 		logError(log_message);
 	};
