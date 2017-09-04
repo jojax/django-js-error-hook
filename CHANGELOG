@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.5 (unreleased)
+0.5 (2017-09-04)
 ----------------
 
-- Nothing changed yet.
-
+- Add column number and error_object and make requests asynchronous. (#10)
 
 0.4 (2016-03-18)
 ----------------
