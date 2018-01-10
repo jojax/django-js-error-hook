@@ -15,7 +15,7 @@ NAME = 'django-js-error-hook'
 README = read_relative_file('README.rst')
 VERSION = read_relative_file('VERSION').strip()
 PACKAGES = ['django_js_error_hook']
-REQUIRES = ['django>=1.9']
+REQUIRES = ['django>=1.10']
 
 
 setup(name=NAME,
@@ -24,6 +24,7 @@ setup(name=NAME,
       long_description=README,
       classifiers=['Development Status :: 1 - Planning',
                    'License :: OSI Approved :: BSD License',
+                   'Programming Language :: Python :: 3.5',
                    'Programming Language :: Python :: 2.7',
                    'Programming Language :: Python :: 2.6',
                    'Framework :: Django',

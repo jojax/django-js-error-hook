@@ -2,20 +2,20 @@
 INSTALL
 #######
 
-To install the project from the development::
+To run the demo project for testing::
 
     $ git clone git://github.com/jojax/django-js-error-hook.git
     $ cd django-js-error-hook
-    $ virtualenv env
-    $ env/bin/python setup.py develop
+    $ python3 -m venv env
+    $ source env/bin/activate
+    $ python setup.py develop
     $ cd demo
-    $ ../env/bin/python demo/setup.py develop
+    $ python manage.py migrate
+run the application::
 
-Then to try the application::
+    $ python manage.py runserver
 
-    $ demo runserver
-
-Then access: http://localhost:8000/ - the javascript error will be log in your console.
+Then access: http://localhost:8000/ - the JavaScript error will be logged in your console.
 
 To install the project in production::
 
@@ -93,6 +93,6 @@ In your template, simply add the js_error_hook script::
 
     <script type="text/javascript" src="{% url 'js-error-handler-js' %}"></script>
 
-Now every Javascript error will be logged in your logging error stream. (Mail, Sentry, ...)
+Now every JavaScript error will be logged in your logging error stream. (Mail, Sentry, ...)
 
 Have fun and feel free to fork us and give us feedbacks!
