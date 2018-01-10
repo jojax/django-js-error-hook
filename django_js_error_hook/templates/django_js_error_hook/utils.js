@@ -38,4 +38,15 @@
 		}
 		logError(log_message);
 	};
+
+	window.onunhandledrejection = function(rejection) {
+		var log_message = rejection.type;
+		if (rejection.reason && rejection.reason.message) {
+			log_message += ", " + rejection.reason.message;
+		}
+		if (rejection.reason && rejection.reason.stack) {
+			log_message += ", " + rejection.reason.stack;
+		}
+		logError(log_message);
+	};
 })();
