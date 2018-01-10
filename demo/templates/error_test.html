@@ -10,9 +10,14 @@
     </head>
 
     <body>
-       A simple Page which voluntary triggers a Js error (Ctrl+U to see the script causing the error)
+       A simple Page which voluntary triggers a regular JavaScript error and an unhandled promise rejection error (Ctrl+U to see the script causing the errors). 
         <script type="text/javascript">
-            A fu***ng javascript error
+            a fu***ng javascript error
+        </script>
+        <script type="text/javascript">
+            new Promise(function(resolve, reject) {
+                window.fish.mountain = 'some text';
+            })
         </script>
     </body>
 </html>
