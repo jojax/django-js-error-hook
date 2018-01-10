@@ -6,14 +6,15 @@ To run the demo project for testing::
 
     $ git clone git://github.com/jojax/django-js-error-hook.git
     $ cd django-js-error-hook
-    $ python3 -m venv env
+    $ virtualenv env --python=python3
     $ source env/bin/activate
-    $ python setup.py develop
-    $ cd demo
-    $ python manage.py migrate
-run the application::
+    (env) $ pip install -e .
+    (env) $ pip install -e demo
+    (env) $ demo migrate
 
-    $ python manage.py runserver
+Run the server::
+
+    (env) $ demo runserver
 
 Then access: http://localhost:8000/ - the JavaScript error will be logged in your console.
 
@@ -24,10 +25,10 @@ To install the project in production::
 Add django-js-error-hook to your INSTALLED_APPS settings::
 
     INSTALLED_APPS = (
-	    ...
+        ...
         'django.contrib.staticfiles',
         'django_js_error_hook',
-		...
+        ...
     )
 
 If you want to log the error in the console for development::
@@ -83,7 +84,7 @@ The view will do csrf validation - if for some reason it doesn't work, set ``JAV
 Then install the urls::
 
     urlpatterns = patterns('',
-	    ...
+        ...
         url(r'^js_error_hook/', include('django_js_error_hook.urls')),
         ...
     )
