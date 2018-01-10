@@ -13,6 +13,7 @@ CSRF_EXEMPT = getattr(settings, 'JAVASCRIPT_ERROR_CSRF_EXEMPT', False)
 
 logger = logging.getLogger(ERROR_ID)
 
+
 class JSErrorHandlerView(View):
     """View that take the JS error as POST parameters and log it"""
 
@@ -25,6 +26,7 @@ class JSErrorHandlerView(View):
                         'request': request
                     })
         return HttpResponse('Error logged')
+
 
 class MimetypeTemplateView(TemplateView):
     """TemplateView with mimetype override"""
