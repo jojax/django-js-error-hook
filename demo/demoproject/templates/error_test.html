@@ -10,13 +10,22 @@
     </head>
 
     <body>
-       A simple Page which voluntary triggers a regular JavaScript error and an unhandled promise rejection error (Ctrl+U to see the script causing the errors). 
+       A simple Page which voluntary triggers a regular JavaScript error and an unhandled promise rejection error (Ctrl+U to see the script causing the errors).
         <script type="text/javascript">
             a fu***ng javascript error
         </script>
         <script type="text/javascript">
             new Promise(function(resolve, reject) {
                 window.fish.mountain = 'some text';
+            })
+            new Promise(function(resolve, reject) {
+                reject(new Error('my reason')); // Reason is an error -- it is logged WITH stack.
+            })
+            new Promise(function(resolve, reject) {
+                reject('bad reason'); // Reason is other object -- reason is logged as message is logged WITHOUT stack.
+            })
+            new Promise(function(resolve, reject) {
+                reject(); // No reason given means rejection is logged WITHOUT stack and WITHOUT message;
             })
         </script>
     </body>

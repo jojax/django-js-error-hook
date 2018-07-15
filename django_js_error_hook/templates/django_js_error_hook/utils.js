@@ -39,14 +39,20 @@
 		logError(log_message);
 	};
 
-	window.onunhandledrejection = function(rejection) {
-		var log_message = rejection.type;
-		if (rejection.reason && rejection.reason.message) {
-			log_message += ", " + rejection.reason.message;
-		}
-		if (rejection.reason && rejection.reason.stack) {
-			log_message += ", " + rejection.reason.stack;
-		}
-		logError(log_message);
-	};
+	if (window.addEventListener) {
+		window.addEventListener('unhandledrejection', function(rejection) {
+			var log_message = rejection.type;
+			if (rejection.reason) {
+				if (rejection.reason.message) {
+					log_message += ", " + rejection.reason.message;
+				} else {
+					log_message += ", " + JSON.stringify(rejection.reason);
+				}
+				if (rejection.reason.stack) {
+					log_message += ", " + rejection.reason.stack;
+				}
+			}
+			logError(log_message);
+		})
+	}
 })();
