@@ -1,10 +1,12 @@
 Changelog
 =========
 
-0.7 (unreleased)
+0.7 (2019-03-26)
 ----------------
 
-- Nothing changed yet.
+- Handle unhandledrejections with non error reasons (#13)
+- Allow blacklisting of custom useragents and errors (#14)
+- Handle missing user in the request (#15)
 
 
 0.6 (2018-01-10)
