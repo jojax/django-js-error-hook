@@ -32,10 +32,14 @@ class JSErrorHandlerView(View):
                 any(error in error_dict['details'].lower() for error in BLACKLIST_ERRORS):
             level = logging.WARNING
 
-        logger.error("Got error: \n%s", '\n'.join("\t%s: %s" % (key, value) for key, value in error_dict.items()), extra={
-                        'status_code': 500,
-                        'request': request
-                    })
+        logger.log(
+            level,
+            "Got error: \n%s", '\n'.join("\t%s: %s" % (key, value) for key, value in error_dict.items()), 
+            extra={
+                'status_code': 500,
+                'request': request
+            }
+        )
         return HttpResponse('Error logged')
 
 
