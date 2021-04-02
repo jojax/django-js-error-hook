@@ -1,11 +1,7 @@
-from distutils.version import StrictVersion
-
-from django import get_version
 from django.conf import settings
 from django.http import HttpResponse
-from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 import logging
 
 ERROR_ID = getattr(settings, 'JAVASCRIPT_ERROR_ID', 'javascript_error')
@@ -26,7 +22,7 @@ class JSErrorHandlerView(View):
             error_dict['user'] = request.user if request.user.is_authenticated else "<UNAUTHENTICATED>"
         else:
             error_dict['user'] = "<UNAUTHENTICATED>"
-         
+
         level = logging.ERROR
         if any(useragent in error_dict['context'].lower() for useragent in BLACKLIST_USERAGENT) or \
                 any(error in error_dict['details'].lower() for error in BLACKLIST_ERRORS):
@@ -34,7 +30,7 @@ class JSErrorHandlerView(View):
 
         logger.log(
             level,
-            "Got error: \n%s", '\n'.join("\t%s: %s" % (key, value) for key, value in error_dict.items()), 
+            "Got error: \n%s", '\n'.join("\t%s: %s" % (key, value) for key, value in error_dict.items()),
             extra={
                 'status_code': 500,
                 'request': request
@@ -42,28 +38,6 @@ class JSErrorHandlerView(View):
         )
         return HttpResponse('Error logged')
 
-
-class MimetypeTemplateView(TemplateView):
-    """TemplateView with mimetype override"""
-    template_name = "django_js_error_hook/utils.js"
-    mimetype = "text/javascript"
-
-    def render_to_response(self, context, **response_kwargs):
-        """
-            Before django 1.5 : 'mimetype'
-            From django 1.5 : 'content_type'
-
-            Add the parameter to return the right mimetype
-        """
-        if StrictVersion(get_version()) < StrictVersion('1.5'):
-            mimetype_parameter = 'mimetype'
-        else:
-            mimetype_parameter = 'content_type'
-
-        response_kwargs[mimetype_parameter] = self.mimetype
-        return super(MimetypeTemplateView, self).render_to_response(context, **response_kwargs)
-
-utils_js = cache_page(2 * 31 * 24 * 60 * 60)(MimetypeTemplateView.as_view()) #: Cache 2 months
 
 if CSRF_EXEMPT:
     js_error_view = csrf_exempt(JSErrorHandlerView.as_view())
