@@ -92,7 +92,10 @@ Then install the urls::
 
 In your template, simply add the js_error_hook script::
 
-    <script type="text/javascript" src="{% url 'js-error-handler-js' %}"></script>
+    <script type="text/javascript">
+        var djangoJSErrorHandlerUrl = "{% url 'js-error-handler' %}";
+    </script>
+    <script type="text/javascript" defer src="{% static 'django_js_error_hook/utils.js' %}"></script>
 
 Now every JavaScript error will be logged in your logging error stream. (Mail, Sentry, ...)
 
@@ -106,4 +109,3 @@ against various versions of Python and Django:
 
     pip install tox
     tox
-
