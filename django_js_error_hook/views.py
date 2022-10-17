@@ -1,8 +1,9 @@
+import logging
+
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
-import logging
 
 ERROR_ID = getattr(settings, "JAVASCRIPT_ERROR_ID", "javascript_error")
 CSRF_EXEMPT = getattr(settings, "JAVASCRIPT_ERROR_CSRF_EXEMPT", False)
