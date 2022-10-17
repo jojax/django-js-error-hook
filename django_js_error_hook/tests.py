@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 from django.urls import reverse
 
@@ -11,6 +9,12 @@ class JSErrorHookTestCase(TestCase):
         """A POST should log the error"""
         response = self.client.post(
             reverse("js-error-handler"),
-            {"details": "Description of the error by the browser javascript engine."},
+            {
+                "context": (
+                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+                ),
+                "details": "Description of the error by the browser javascript engine.",
+            },
         )
         self.assertEqual(response.status_code, 200)

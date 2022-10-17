@@ -19,7 +19,8 @@
     if (cookie) {
       xhr.setRequestHeader('X-CSRFToken', cookie)
     }
-    const query = []; const data = {
+    const query = []
+    const data = {
       context: navigator.userAgent,
       details
     }

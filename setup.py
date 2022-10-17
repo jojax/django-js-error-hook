@@ -15,7 +15,7 @@ NAME = "django-js-error-hook"
 README = read_relative_file("README.rst")
 VERSION = read_relative_file("VERSION").strip()
 PACKAGES = ["django_js_error_hook"]
-REQUIRES = ["django>=1.10"]
+REQUIRES = ["django>=3.2.0"]
 
 
 setup(
@@ -26,8 +26,7 @@ setup(
     classifiers=[
         "Development Status :: 1 - Planning",
         "License :: OSI Approved :: BSD License",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
         "Framework :: Django",
     ],
     keywords="class-based view, generic view, js error hooking",
