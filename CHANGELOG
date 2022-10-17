@@ -1,10 +1,13 @@
 Changelog
 =========
 
-0.9 (unreleased)
+1.0 (2022-10-17)
 ----------------
 
 - Switched CI tests from Travis to Github Actions.
+- Add support for Django 4.0.
+- Use static to serve the utility.
+- Add pre-commit and linter.
 
 
 0.8 (2019-12-08)
