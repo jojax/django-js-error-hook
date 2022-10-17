@@ -100,3 +100,13 @@ In your template, simply add the js_error_hook script::
 Now every JavaScript error will be logged in your logging error stream. (Mail, Sentry, ...)
 
 Have fun and feel free to fork us and give us feedbacks!
+
+###########
+DEVELOPMENT
+###########
+When writing for this app you can run `tox <https://tox.wiki/en/latest/>`_ which will test the project
+against various versions of Python and Django:
+
+    pip install tox
+    tox
+
