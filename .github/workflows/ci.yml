@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [ 3.5, 3.6, 3.7 ]
+        python: [ 3.6, 3.7, 3.8, 3.9, 3.10 ]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -21,12 +21,10 @@ jobs:
       - name: Run tests
         run: tox
       - name: Coverage
-        if: ${{ matrix.python == 3.7 }}
         run: |
-          pip install coverage[toml] django==2.0
+          pip install coverage[toml]
           coverage run manage.py test --settings=test_settings
       - name: Upload coverage
-        if: ${{ matrix.python == 3.7 }}
         uses: codecov/codecov-action@v1
         with:
           name: Python ${{ matrix.python }}
