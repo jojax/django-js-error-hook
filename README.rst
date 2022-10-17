@@ -6,7 +6,7 @@ To run the demo project for testing::
 
     $ git clone git://github.com/jojax/django-js-error-hook.git
     $ cd django-js-error-hook
-    $ virtualenv env --python=python3
+    $ python -m venv env
     $ source env/bin/activate
     (env) $ pip install -e .
     (env) $ pip install -e demo

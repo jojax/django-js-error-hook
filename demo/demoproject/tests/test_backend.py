@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-class JSErrorHookTestCase(TestCase):
+class BackendTestCase(TestCase):
     """Test project views."""
 
     def test_error_handler_view(self):

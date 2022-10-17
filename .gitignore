@@ -4,6 +4,7 @@
 dist/
 env/
 demo/__pycache__/
+demo/build/
 *.sqlite3
 .direnv/
 node_modules/
