@@ -1,59 +1,59 @@
 (function () {
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
+  function getCookie (name) {
+    const nameEQ = name + '='
+    const ca = document.cookie.split(';')
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i]
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length)
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
     }
+    return null
+  }
 
-    function logError(details) {
-        var xhr = new XMLHttpRequest();
+  function logError (details) {
+    const xhr = new XMLHttpRequest()
 
-        xhr.open("POST", djangoJSErrorHandlerUrl, true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        var cookie = getCookie('csrftoken');
-        if (cookie) {
-            xhr.setRequestHeader("X-CSRFToken", cookie);
-        }
-        var query = [], data = {
-            context: navigator.userAgent,
-            details: details
-        };
-        for (var key in data) {
-            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
-        }
-        xhr.send(query.join('&'));
+    xhr.open('POST', window.djangoJSErrorHandlerUrl, true)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    const cookie = getCookie('csrftoken')
+    if (cookie) {
+      xhr.setRequestHeader('X-CSRFToken', cookie)
     }
-
-    window.onerror = function (msg, url, line_number, column_number, error_obj) {
-        var log_message = url + ': ' + line_number + ': ' + msg;
-        if (column_number) {
-            log_message += ", " + column_number;
-        }
-        if (error_obj && error_obj.stack) {
-            log_message += ", " + error_obj.stack;
-        }
-        logError(log_message);
-    };
-
-    if (window.addEventListener) {
-        window.addEventListener('unhandledrejection', function (rejection) {
-            var log_message = rejection.type;
-            if (rejection.reason) {
-                if (rejection.reason.message) {
-                    log_message += ", " + rejection.reason.message;
-                } else {
-                    log_message += ", " + JSON.stringify(rejection.reason);
-                }
-                if (rejection.reason.stack) {
-                    log_message += ", " + rejection.reason.stack;
-                }
-            }
-            logError(log_message);
-        })
+    const query = []; const data = {
+      context: navigator.userAgent,
+      details
     }
-})();
+    for (const key in data) {
+      query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    }
+    xhr.send(query.join('&'))
+  }
+
+  window.onerror = function (msg, url, lineNumber, columnNumber, errorObj) {
+    let logMessage = url + ': ' + lineNumber + ': ' + msg
+    if (columnNumber) {
+      logMessage += ', ' + columnNumber
+    }
+    if (errorObj && errorObj.stack) {
+      logMessage += ', ' + errorObj.stack
+    }
+    logError(logMessage)
+  }
+
+  if (window.addEventListener) {
+    window.addEventListener('unhandledrejection', function (rejection) {
+      let logMessage = rejection.type
+      if (rejection.reason) {
+        if (rejection.reason.message) {
+          logMessage += ', ' + rejection.reason.message
+        } else {
+          logMessage += ', ' + JSON.stringify(rejection.reason)
+        }
+        if (rejection.reason.stack) {
+          logMessage += ', ' + rejection.reason.stack
+        }
+      }
+      logError(logMessage)
+    })
+  }
+})()

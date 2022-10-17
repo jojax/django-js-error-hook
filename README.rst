@@ -109,4 +109,3 @@ against various versions of Python and Django:
 
     pip install tox
     tox
-

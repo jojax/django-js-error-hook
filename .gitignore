@@ -5,3 +5,8 @@ dist/
 env/
 demo/__pycache__/
 *.sqlite3
+.direnv/
+node_modules/
+.envrc
+package.json
+package-lock.json
